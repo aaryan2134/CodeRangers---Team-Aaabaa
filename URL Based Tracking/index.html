@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracking Demo</title>
+  <script>
+    const trackingData = {
+      userId: '123456',
+      pages: [],
+      linkClicks: [],
+    };
+
+    function trackUser(action, data) {
+      const currentPage = window.location.href;
+      trackingData.pages.push({
+        pageUrl: currentPage,
+        timestamp: new Date().toISOString(),
+      });
+
+      if (action === 'linkClick') {
+        trackingData.linkClicks.push({
+          linkUrl: data,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      const scrollPosition = window.scrollY;
+      trackingData.scrollPosition = scrollPosition;
+
+      fetch('http://localhost:3000/track', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(trackingData),
+      })
+      .then(response => console.log('Server response:', response))
+      .catch(error => console.error('Error:', error));
+    }
+
+    window.onload = () => trackUser('pageLoad');
+
+    window.addEventListener('scroll', () => trackUser('scroll'));
+
+    function openTrackedLink(url) {
+      trackUser('linkClick', url);
+      window.open(url, '_blank');
+    }
+  </script>
+</head>
+<body>
+  <h1>Tracking Demo</h1>
+  <p>Scroll down/Click to see tracking in action</p>
+
+  <button onclick="openTrackedLink('https://unstop.com/competitions/rategain-code-rangers-early-careers-0-3-years-rategain-code-rangers-rategain-travel-technologies-ltd-793535')">Open Page 1</button>
+  <button onclick="openTrackedLink('https://rategain.com/')">Open Page 2</button>
+</body>
+</html>
