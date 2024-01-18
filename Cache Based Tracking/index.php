@@ -6,9 +6,11 @@
 	// An ETag was sent to the webserver
 	if (!empty($_SERVER["HTTP_IF_NONE_MATCH"])) {
 		$etag = substr(str_replace(".", "", str_replace("/", "", str_replace("\\", "", $_SERVER["HTTP_IF_NONE_MATCH"]))), 0, 18);
+		$ip = $_SERVER["REMOTE_ADDR"];
 	}
 	else {
 		$etag = substr(sha1($secret . sha1($_SERVER["REMOTE_ADDR"]) . sha1($_SERVER["HTTP_USER_AGENT"])), 0, 18);
+		$ip = $_SERVER["REMOTE_ADDR"];
 	}
 	
 	// Initialize a new or existing session given any etag
@@ -18,7 +20,7 @@
 			$session = unserialize(file_get_contents($sessionsdir . $etag));
 		}
 		else {
-			$session = array("visits" => 1, "last_visit" => time(), "your_string" => "");
+			$session = array("visits" => 1, "last_visit" => time(), "your_string" => "", "ad_click" => 0);
 		}
 	}
 	
@@ -59,6 +61,13 @@
 		header("Location: ./");
 		exit;
 	}
+
+	if (isset($_POST["Ads"])) {
+		$session["ad_click"] += 1;
+		storesession($etag);
+		header("Location: ./");
+		exit;
+	}
 	
 ?>
 <!DOCTYPE html>
@@ -82,11 +91,19 @@
 				<br/>
 				<b>Last visit:</b> <?php echo date("r", $session["last_visit"]); ?><br/>
 				<br/>
+				<b>Your IP:</b> <?php echo $ip; ?><br/>
+				<br/>
+				<b>Ad Clicks:</b> <?php echo $session["ad_click"]; ?><br/>
+				<br/>
 				<b>Store Text Using the Text Box: </b><br/>
 				<textarea name=newstring style="width: 632px;" rows=4><?php echo $session["your_string"]; ?></textarea><br/>
 				(max. 350 characters)<br/>
 				<input type=submit value=Store />
 			</form>
 			<hr/>
+			<form method="POST" action="./">
+				<input name=Ads type=submit value=Ads />
+			</form>
+		</div>
 	</body>
 </html>
