@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Belanosima&display=swap");
+nav {
+    display: flex;
+    justify-content: space-between;
+    color: #fcb900;
+    font-family: "Belanosima", sans-serif;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    padding: 10px 5% 0px 5%;
+    height: 70px;
+}
+
+#logo {
+    font-family: "Mochiy Pop P One", sans-serif;
+}
+
+ul {
+    display: flex;
+    opacity: 0;
+}
+
+li {
+    padding: 15px;
+    list-style-type: none;
+    font-size: larger;
+}
+
+li :hover {
+    color: orange;
+}
+
+a {
+    transition: all 0.3s;
+}
+
+.logo {
+    position: absolute;
+    cursor: pointer;
+    left: 5%;
+    top: 15px;
+    display: none;
+}
+
+.burger {
+    position: absolute;
+    cursor: pointer;
+    right: 5%;
+    top: 15px;
+    display: none;
+    font-size: 40px;
+}
+
+@media only screen and (min-width: 1020px) {
+    ul {
+        opacity: 1;
+    }
+    .logo {
+        opacity: 0;
+    }
+    .Nologo {
+        opacity: 0;
+    }
+}
+
+@media only screen and (max-width: 1020px) {
+    nav {
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    nav ul {
+        flex-direction: column;
+    }
+    .burger {
+        display: block;
+    }
+    .logo {
+        display: block;
+    }
+    #logo {
+        color: #fcb900;
+    }
+    .h-nav-resp {
+        height: 420px;
+        color: #abb8c3;
+        background-image: linear-gradient( to right, #fcb900 0%, #fcb900 51%, #abb8c3 100%);
+    }
+    .v-class-resp {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .display-none {
+        display: none;
+    }
+}

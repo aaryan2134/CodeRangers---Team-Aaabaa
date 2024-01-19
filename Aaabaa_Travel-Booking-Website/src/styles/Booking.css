@@ -1,0 +1,80 @@
+#BookingBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid; */
+  height: 100vh;
+  padding-top: 60px;
+  background-color: rgb(220, 236, 241);
+}
+
+#BookingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+form {
+  width: 30%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: white;
+}
+
+#bookingForm {
+  margin-top: -40px;
+}
+
+@media only Screen and (max-width: 1000px) {
+  form {
+    width: 40%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-around;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+}
+
+@media only Screen and (max-width: 700px) {
+  form {
+    width: 60%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-around;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+}
+
+@media only Screen and (max-width: 500px) {
+  form {
+    width: 80%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-around;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+}
+
+@media only Screen and (max-width: 300px) {
+  form {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-around;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+}
